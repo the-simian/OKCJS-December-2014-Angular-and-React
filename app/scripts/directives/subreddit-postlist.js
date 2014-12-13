@@ -29,13 +29,11 @@ function subredditPostlistgridAngular() {
             posts: '=',
             columns: '='
         },
-        link: [
-            '$scope',
-            'columns',
-            function ($scope, columns) {
-                console.log('columns', columns)
-            }
-        ]
+        link: function ($scope, $sce) {
+
+            $scope.successThreshold = 275;
+        }
+
     };
 }
 

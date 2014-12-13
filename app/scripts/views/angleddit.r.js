@@ -6,26 +6,25 @@ AngledditApp
 
             //move pages to stateparams
             function subredditpostsResolve(subreddit, $stateParams) {
-                return subreddit.get($stateParams.subreddit, 3);
+                return subreddit.get($stateParams.subreddit, $stateParams.pages);
             }
-            
-            function columnsResolve(columns){
-            
+
+            function columnsResolve(columns) {
                 return columns;
             }
-        
+
             var angledditRResolve = {
-                subredditposts: subredditpostsResolve,
-                //columns: columnsResolve
+                subredditposts: subredditpostsResolve
             };
 
-            function angledditRCtrl($scope, subredditposts) {
+            function angledditRCtrl($scope, $stateParams, $state, subredditposts) {
+                $scope.subreddit = $stateParams.subreddit;
                 $scope.subredditposts = subredditposts;
-                //$scope.columns = columns;
+                $scope.pages = parseInt($stateParams.pages) || 0;    
             }
 
             var angledditAngularView = {
-                url: '/r/:subreddit',
+                url: '/r/:subreddit?pages',
                 templateUrl: 'views/angleddit.r.angular.html',
                 controller: angledditRCtrl,
                 resolve: angledditRResolve
@@ -33,13 +32,11 @@ AngledditApp
 
 
             var angledditReactView = {
-                url: '/r/:subreddit',
+                url: '/r/:subreddit?pages',
                 templateUrl: 'views/angleddit.r.react.html',
                 controller: angledditRCtrl,
                 resolve: angledditRResolve
             };
-
-
 
             $stateProvider
                 .state('angleddit.angular', angledditAngularView)

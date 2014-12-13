@@ -1,14 +1,30 @@
 <div>
-  <div class="row">
-    <h3>Subreddits</h3>
-  </div>
-  <div class="row btn-group-vertical">
-    <div 
-          ng-repeat="subreddit in subreddits" 
-           class=" btn btn-default">
-      
-      
-      <subreddit-Menu-Item subreddit="{{subreddit.display_name}}"></subreddit-Menu-Item>
+    <div class="row">
+        <h3>Subreddits</h3>
+        <div class="row">
+            <div class="col-md-6" ng-init="pages='1'">
+                <input type="range" name="quantity" min="1" max="10" ng-model="pages">
+            </div>
+            <div class="col-md-6">
+                <label>pgs: {{pages}}</label>
+            </div>
+        </div>
+        <div class="row" ng-init="renderer='angular'">
+            <input type="radio" ng-model="renderer" value="angular">Angular
+            <br/>
+            <input type="radio" ng-model="renderer" value="react">React
+            <br/>
+        </div>
     </div>
-  </div>
+    <div class="row btn-group-vertical">
+        <div ng-repeat="subreddit in subreddits" class=" btn btn-default">
+
+
+            <subreddit-Menu-Item 
+                                 subreddit="{{subreddit.display_name}}" 
+                                 pages="{{pages}}"
+                                 renderer = "{{renderer}}" 
+                                 ></subreddit-Menu-Item>
+        </div>
+    </div>
 </div>

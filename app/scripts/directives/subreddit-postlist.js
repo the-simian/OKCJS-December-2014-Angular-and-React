@@ -26,12 +26,42 @@ function subredditPostlistgridAngular() {
         restrict: 'E',
         replace: true,
         scope: {
-            posts: '=',
-            columns: '='
+            posts: '='
         },
-        link: function ($scope, $sce) {
+        link: function ($scope, $el) {
 
             $scope.successThreshold = 275;
+
+
+        }
+
+    };
+}
+
+function subredditPostlistgridReact() {
+    return {
+        template: '<div>test</div>',
+        restrict: 'E',
+        replace: true,
+        scope: {
+            posts: '=',
+        },
+        link: function link($scope, $el, $attrs) {
+
+            $scope.successThreshold = 275;
+
+            function render(newVal, oldVal) {
+
+
+                var model = {
+                    data: newVal
+                };
+
+
+                React.render(AnguledditComponents.PostGrid(model), $el[0]);
+            }
+
+            $scope.$watch('posts', render)
         }
 
     };
@@ -40,4 +70,5 @@ function subredditPostlistgridAngular() {
 angular
     .module('angledditApp')
     .directive('subredditPostlist', subredditPostlist)
-    .directive('subredditPostlistgridAngular', subredditPostlistgridAngular);
+    .directive('subredditPostlistgridAngular', subredditPostlistgridAngular)
+    .directive('subredditPostlistgridReact', subredditPostlistgridReact);

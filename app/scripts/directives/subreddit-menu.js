@@ -44,7 +44,6 @@ angular.module('angledditApp')
 
                 $scope.$watch('pages', updatePage);
                 $scope.$watch('renderer', updateRenderer);
-
             }
         };
     });

@@ -9,11 +9,17 @@
     "angular-resource": "~1.2.0",
     "angular-cookies": "~1.2.0",
     "angular-animate": "~1.2.0",
-    "angular-ui-router": "0.2.x"  
+    "angular-ui-router": "0.2.x",
+    "react": "0.12.x"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0"
   },
+  "overrides": {
+    "react": {
+        "main" : "react-with-addons.js"
+    }
+  },    
   "appPath": "app"
 }

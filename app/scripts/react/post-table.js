@@ -13,7 +13,7 @@ AnguledditComponents.PostGrid = React.createClass({
         var posts = this.props.data,
             successThreshold = this.props.successThreshold || 275,
             baseKey = this.props.id;
-        
+
         var headerNames = [
             '#',
             'Score',

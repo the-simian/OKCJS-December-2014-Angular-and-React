@@ -6,7 +6,8 @@
  * @description
  * # subredditMenuItem
  */
-angular.module('angledditApp')
+angular
+    .module('angledditApp')
     .directive('subredditMenuItem', function () {
         return {
             templateUrl: './partials/subreddit-menu-item.html',

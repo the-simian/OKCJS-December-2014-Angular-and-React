@@ -29,10 +29,7 @@ function subredditPostlistgridAngular() {
             posts: '='
         },
         link: function ($scope, $el) {
-
             $scope.successThreshold = 275;
-
-
         }
 
     };
@@ -50,18 +47,18 @@ function subredditPostlistgridReact() {
 
             $scope.successThreshold = 275;
 
-            function render(newVal, oldVal) {
-
+            function render(newVal) {
 
                 var model = {
-                    data: newVal
+                    id : $scope.id || 'postgrid',
+                    data: newVal,
+                    successThreshold: $scope.successThreshold
                 };
-
 
                 React.render(AnguledditComponents.PostGrid(model), $el[0]);
             }
 
-            $scope.$watch('posts', render)
+            $scope.$watch('posts', render);
         }
 
     };

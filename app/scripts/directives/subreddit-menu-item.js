@@ -18,12 +18,8 @@ angular.module('angledditApp')
             },
             controller: function ($scope, $state, $stateParams) {
                 function navigate(subreddit, pages, renderer) {
-
-                    $stateParams.pages = pages;
+                    $stateParams.pages = parseInt(pages);
                     $stateParams.subreddit = subreddit;
-
-                    console.log($state)
-
                     $state.go('angleddit.' + renderer, $stateParams);
                 }
 

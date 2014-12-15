@@ -20,11 +20,11 @@ AngledditApp
             function angledditRCtrl($scope, $stateParams, $state, subredditposts) {
                 $scope.subreddit = $stateParams.subreddit;
                 $scope.subredditposts = subredditposts;
-                $scope.pages = parseInt($stateParams.pages) || 0;    
+                $scope.pages = parseInt($stateParams.pages) || 1;    
             }
 
             var angledditAngularView = {
-                url: '/r/:subreddit?pages',
+                url: '/r/:subreddit',
                 templateUrl: 'views/angleddit.r.angular.html',
                 controller: angledditRCtrl,
                 resolve: angledditRResolve
@@ -32,7 +32,7 @@ AngledditApp
 
 
             var angledditReactView = {
-                url: '/r/:subreddit?pages',
+                url: '/r/:subreddit',
                 templateUrl: 'views/angleddit.r.react.html',
                 controller: angledditRCtrl,
                 resolve: angledditRResolve

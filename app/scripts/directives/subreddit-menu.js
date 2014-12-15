@@ -13,35 +13,28 @@ angular.module('angledditApp')
             restrict: 'E',
             replace: true,
             scope: {
-                subreddits: '='
+                subreddits: '=',
+                pages: '=',
+                renderer: '='
             },
             controller: function ($scope, $state, $stateParams) {
-
-
-                $scope.pages = $stateParams.pages || 1;
-
                 function updatePage(pg, oldPage) {
-
                     if (pg == oldPage) {
                         return;
                     }
-
-                    $stateParams.pages = pg;
-
-
+                    $stateParams.pages = parseInt(pg);
                     $state.go($state.current, $stateParams);
                 }
 
-
                 function updateRenderer(newVal, oldVal) {
-
                     if (newVal == oldVal) {
                         return;
                     }
-
+                    $stateParams.renderer = newVal;
                     $state.go('angleddit.' + newVal, $stateParams);
                 }
 
+                $scope.pages = parseInt($stateParams.pages) || 1;
                 $scope.$watch('pages', updatePage);
                 $scope.$watch('renderer', updateRenderer);
             }

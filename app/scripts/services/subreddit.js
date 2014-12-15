@@ -16,15 +16,7 @@ angular
 
         function toChildren(prevValue, currentValue) {
             var previous = prevValue.length ? prevValue : (prevValue.data.children || []);
-
-
-
             return previous.concat(currentValue.data.children);
-        }
-
-        function pageParams(params, page) {
-            params.page = page
-            return params;
         }
 
         function returnChildren(response) {
@@ -36,7 +28,11 @@ angular
                 children = children.data.children || [];
             }
 
-            var subreddits = children.map(toData);
+            var subreddits = _
+                .chain(children)
+                .map(toData)
+                .value();
+
             return subreddits;
         }
 
@@ -51,26 +47,44 @@ angular
 
         function get(subreddit, pages) {
 
-            function toQPage(pNumber) {
-                var pParams = pageParams(params, pNumber);
-                return Subreddit
-                    .get(pParams)
-                    .$promise
-            }
-
             var Subreddit = $resource('http://www.reddit.com/r/:subreddit.json');
             var params = {
-                subreddit: subreddit || 'cringehop',
-                count: 100,
+                subreddit: subreddit || 'programming',
                 limit: 100
             };
 
-            var pgs = range(0, pages || 0);
-            var qPages = pgs.map(toQPage);
-            var qManyPages = $q.all(qPages);
+            var pgs = range(1, pages || 1);
 
-            return qManyPages
-                .then(returnChildren);
+            var qFirstPage = Subreddit
+                .get(params)
+                .$promise;
+
+            function replicatePages(resource) {
+
+                var posts = _.map(resource.data.children, toData);
+
+                function toPostList(pageNumber) {
+                    var postsCopy = _.map(posts, _.clone);
+
+                    function toPagedId(post) {
+                        post.id = pageNumber + '_' + post.id;
+                        return post;
+                    }
+                    return _.map(postsCopy, toPagedId);
+                }
+
+                var replicatedPosts = _
+                    .chain(pgs)
+                    .map(toPostList)
+                    .flatten()
+                    .value();
+
+                return replicatedPosts;
+            }
+
+
+            return qFirstPage
+                .then(replicatePages);
         }
 
 

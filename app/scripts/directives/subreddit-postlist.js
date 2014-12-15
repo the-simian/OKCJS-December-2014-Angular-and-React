@@ -31,7 +31,6 @@ function subredditPostlistgridAngular() {
         link: function ($scope, $el) {
             $scope.successThreshold = 275;
         }
-
     };
 }
 

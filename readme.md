@@ -7,7 +7,7 @@
 
 ##Get started
 
-Runnign this application is simple. 
+Running this application is simple. 
 
 
 - Clone the repo by typing
